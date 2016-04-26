@@ -3,7 +3,10 @@
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
-
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.cross_validation import cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
 features_train, labels_train, features_test, labels_test = makeTerrainData()
 
 
@@ -30,11 +33,14 @@ plt.show()
 
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
+#clf = AdaBoostClassifier(n_estimators=100)
+#clf = RandomForestClassifier(n_estimators=200, max_depth=None,min_samples_split=1, random_state=3)
+clf = KNeighborsClassifier(n_neighbors=4)
+clf = clf.fit(features_train, labels_train)
+scores = cross_val_score(clf, features_test, labels_test)
+acc = clf.score(features_test, labels_test)
 
-
-
-
-
+print acc, scores
 
 
 
